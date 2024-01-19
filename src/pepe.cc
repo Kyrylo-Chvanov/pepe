@@ -1,5 +1,3 @@
-#include <SFML/System/Vector2.hpp>
-#include <iostream>
 #include <SFML/Window.hpp>
 #include <raylib.h>
 
