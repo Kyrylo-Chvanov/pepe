@@ -1,0 +1,26 @@
+{
+  "version": 10,
+  "configurePresets": [
+    {
+      "name": "debug",
+      "displayName": "Debug",
+      "binaryDir": "./build",
+      "generator": "Unix Makefiles",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_CXX_FLAGS_INIT": "-Wall -Wextra -Werror"
+      }
+    },
+    {
+      "name": "release",
+      "displayName": "Release",
+      "binaryDir": "./build_release",
+      "generator": "Unix Makefiles",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    }
+  ]
+}
