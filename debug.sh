@@ -1,6 +1,3 @@
 #!/usr/bin/env bash
 
-cmake --preset debug
-cd build
-make
-./proj "$@"
+cmake --preset debug && cd build && make && ./pepe "$@"
