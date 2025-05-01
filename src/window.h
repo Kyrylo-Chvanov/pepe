@@ -4,13 +4,12 @@
 
 class Window {
  public:
-  Window(const int width, const int height) : position_{} {
-    SetConfigFlags(FLAG_WINDOW_TRANSPARENT | FLAG_WINDOW_TOPMOST);
-    InitWindow(width, height, "pepe");
-    position_ = GetWindowPosition();
-  }
+  Window(const int width, const int height);
   ~Window() { CloseWindow(); }
+  void Update();
 
  private:
+  void ProcessDragging();
   Vector2 position_;
+  Vector2 mouse_offset_;
 };
