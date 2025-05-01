@@ -10,7 +10,10 @@ constexpr int WIN_HEIGHT{42};
 
 App::App() : window_{WIN_WIDTH, WIN_HEIGHT}, pepe_{} {}
 
-void App::Update() { pepe_.Update(); }
+void App::Update() { 
+  window_.Update();
+  pepe_.Update();
+}
 
 void App::Draw() const {
   ClearBackground(BLANK);
