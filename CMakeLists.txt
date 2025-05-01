@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.31)
-project(proj)
+project(pepe)
 
 set(CMAKE_CXX_STANDARD          17)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
@@ -12,7 +12,10 @@ add_executable(${PROJECT_NAME}
   src/app.h
   src/app.cc
   src/window.h
+  src/window.cc
 )
 
 find_package(raylib)
-target_link_libraries(${PROJECT_NAME} raylib)
+find_package(SFML COMPONENTS Window)
+target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
+target_link_libraries(${PROJECT_NAME} PRIVATE SFML::Window)
