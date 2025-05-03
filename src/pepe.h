@@ -1,6 +1,9 @@
 #pragma once
 
 #include <raylib.h>
+#include "animation.h"
+
+constexpr FrameSize PEPE_FRAME_SIZE{16, 16}; 
 
 class Pepe {
  public:
@@ -8,11 +11,14 @@ class Pepe {
     WANDERING,
     GRABBED,
   };
-  Pepe() : state_{WANDERING} {}
+  Pepe();
+  ~Pepe() { UnloadTexture(texture_); }
   void Draw() const;
   void Update();
   State GetState() const { return state_; }
   void SetState(const State state) { state_ = state; }
  private:
   State state_;
+  Texture2D texture_;
+  AnimationPlayer animations_;
 };
