@@ -13,6 +13,7 @@ class App {
   void Run();
 
  private:
+  void UpdatePepeState();
   Window window_;
   Pepe pepe_;
 };
