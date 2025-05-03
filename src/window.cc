@@ -9,7 +9,7 @@
 Window::Window(const int width, const int height)
     : position_{}, mouse_offset_{MAXFLOAT, MAXFLOAT} {
   SetConfigFlags(FLAG_WINDOW_TRANSPARENT | FLAG_WINDOW_TOPMOST |
-                 FLAG_WINDOW_UNDECORATED);
+                 FLAG_WINDOW_UNDECORATED | FLAG_VSYNC_HINT);
   InitWindow(width, height, "pepe");
   position_ = GetWindowPosition();
 }
