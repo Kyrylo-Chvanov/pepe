@@ -13,6 +13,8 @@ add_executable(${PROJECT_NAME}
   src/app.cc
   src/window.h
   src/window.cc
+  src/animation.cc
+  src/animation.h
 )
 
 find_package(raylib)
