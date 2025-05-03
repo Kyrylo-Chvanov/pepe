@@ -7,6 +7,7 @@ class Window {
   Window(const int width, const int height);
   ~Window() { CloseWindow(); }
   void Update();
+  bool IsBeingDragged() { return IsMouseButtonDown(MOUSE_LEFT_BUTTON); }
 
  private:
   void ProcessDragging();

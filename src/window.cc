@@ -15,7 +15,7 @@ Window::Window(const int width, const int height)
 }
 
 void Window::ProcessDragging() {
-  if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
+  if (IsBeingDragged()) {
     sf::Vector2i mouse_position{sf::Mouse::getPosition()};
     if (FloatEquals(mouse_offset_.x, MAXFLOAT)) {
       mouse_offset_ = Vector2{mouse_position.x - position_.x,
