@@ -4,4 +4,4 @@ TODO:
 - [ ] Pepe has its own sprite
 - [ ] Pepe can walk on the screen
 - [x] User can drug pepe on the screen
-- [ ] Change pepe's size
+- [x] Change Pepe's size
