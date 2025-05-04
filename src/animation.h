@@ -43,7 +43,7 @@ class AnimationPlayer {
   }
   void FlipAnimation(const bool flip) {
     if (flip) {
-      frame_rect_.width = -frame_rect_.width;
+      frame_rect_.width = -std::abs(frame_rect_.width);
     } else {
       frame_rect_.width = std::abs(frame_rect_.width);
     }
