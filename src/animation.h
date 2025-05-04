@@ -2,6 +2,7 @@
 
 #include <raylib.h>
 
+#include <cstdlib>
 #include <map>
 #include <vector>
 
@@ -38,6 +39,13 @@ class AnimationPlayer {
   void DrawAt(const Rectangle& destination) const {
     if (current_animation_ != nullptr) {
       DrawTexturePro(texture_, frame_rect_, destination, Vector2{0, 0}, 0, WHITE);
+    }
+  }
+  void FlipAnimation(const bool flip) {
+    if (flip) {
+      frame_rect_.width = -frame_rect_.width;
+    } else {
+      frame_rect_.width = std::abs(frame_rect_.width);
     }
   }
 
