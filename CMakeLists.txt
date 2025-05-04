@@ -15,6 +15,7 @@ add_executable(${PROJECT_NAME}
   src/window.cc
   src/animation.cc
   src/animation.h
+  src/timer.h
 )
 
 find_package(raylib)
