@@ -7,7 +7,10 @@
 #include <SFML/Window/Mouse.hpp>
 
 Window::Window(const int width, const int height)
-    : position_{}, mouse_offset_{MAXFLOAT, MAXFLOAT} {
+    : is_moving_{false},
+      target_position_{},
+      position_{},
+      mouse_offset_{MAXFLOAT, MAXFLOAT} {
   SetConfigFlags(FLAG_WINDOW_TRANSPARENT | FLAG_WINDOW_TOPMOST |
                  FLAG_WINDOW_UNDECORATED | FLAG_VSYNC_HINT);
   InitWindow(width, height, "pepe");
@@ -48,7 +51,33 @@ void Window::ProcessSizeChanges() {
   }
 }
 
+void Window::ProcessMovement() {
+  if (is_moving_) {
+    if (Vector2Distance(target_position_, position_) < 5) {
+      is_moving_ = false;
+    } else {
+      constexpr int PEPE_SPEED{100};
+      position_ += Vector2Normalize(GetMovementVector()) * PEPE_SPEED *
+                   GetFrameTime();
+      SetWindowPosition(position_.x, position_.y);
+    }
+  }
+}
+
+Vector2 Window::GetRandomTarget() const {
+  const int current_monitor{GetCurrentMonitor()};
+  const int monitor_width{GetMonitorWidth(current_monitor)};
+  const int monitor_height{GetMonitorHeight(current_monitor)};
+  const int screen_width{GetScreenWidth()};
+  const int screen_height{GetScreenHeight()};
+  return Vector2{
+    static_cast<float>(GetRandomValue(screen_width, monitor_width - screen_width)),
+    static_cast<float>(GetRandomValue(screen_height, monitor_height - screen_height))
+  };
+}
+
 void Window::Update() {
   ProcessDragging();
   ProcessSizeChanges();
+  ProcessMovement();
 }
