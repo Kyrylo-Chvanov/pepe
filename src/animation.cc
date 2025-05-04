@@ -28,15 +28,17 @@ void AnimationPlayer::AddAnimation(const char* animation_name, const Animation& 
 }
 
 void AnimationPlayer::Update() {
-  Animation current{animations_.at(current_animation_)};
-  frame_counter_++;
-  if (frame_counter_ >= (GetFPS()/current.speed)) {
-    frame_counter_ = 0;
-    current_frame_++;
-    if (current_frame_ >= current.frames.size()) {
-      current_frame_ = 0;
+  if (current_animation_ != nullptr) {
+    Animation current{animations_.at(current_animation_)};
+    frame_counter_++;
+    if (frame_counter_ >= (GetFPS()/current.speed)) {
+      frame_counter_ = 0;
+      current_frame_++;
+      if (current_frame_ >= current.frames.size()) {
+        current_frame_ = 0;
+      }
+      frame_rect_.x = current.frames[current_frame_].x * frame_size_.x;
+      frame_rect_.y = current.frames[current_frame_].y * frame_size_.y;
     }
-    frame_rect_.x = current.frames[current_frame_].x * frame_size_.x;
-    frame_rect_.y = current.frames[current_frame_].y * frame_size_.y;
   }
 }

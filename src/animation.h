@@ -35,7 +35,9 @@ class AnimationPlayer {
   void AddAnimation(const char* animation_name, const Animation& animation);
   void Update();
   void DrawAt(const Rectangle& destination) const {
-    DrawTexturePro(texture_, frame_rect_, destination, Vector2{0, 0}, 0, WHITE);
+    if (current_animation_ != nullptr) {
+      DrawTexturePro(texture_, frame_rect_, destination, Vector2{0, 0}, 0, WHITE);
+    }
   }
 
  private:
