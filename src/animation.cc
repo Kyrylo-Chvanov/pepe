@@ -1,5 +1,6 @@
 #include "animation.h"
 #include <raylib.h>
+#include <cstring>
 #include <utility>
 
 Animation::Animation(const unsigned speed, const unsigned row,
@@ -10,14 +11,23 @@ Animation::Animation(const unsigned speed, const unsigned row,
   }
 }
 
-void AnimationPlayer::Play(const char* animation) {
+void AnimationPlayer::UpdateFrameRect() {
+  Animation current{animations_.at(current_animation_)};
+  frame_rect_.x = current.frames[current_frame_].x * frame_size_.x;
+  frame_rect_.y = current.frames[current_frame_].y * frame_size_.y;
+}
+
+void AnimationPlayer::Play(const char* animation, const bool reset) {
   if (animations_.find(animation) == animations_.end()) {
     TraceLog(LOG_WARNING, "ANIMATION: '%s' doesn't exist", animation);
     return;
   }
-  current_animation_ = animation;
-  frame_counter_ = 0;
-  current_frame_ = 0;
+  if (reset || current_animation_ == nullptr || strcmp(animation, current_animation_) != 0) {
+    current_animation_ = animation;
+    frame_counter_ = 0;
+    current_frame_ = 0;
+    UpdateFrameRect();
+  }
 }
 
 void AnimationPlayer::AddAnimation(const char* animation_name, const Animation& animation) {
@@ -37,8 +47,7 @@ void AnimationPlayer::Update() {
       if (current_frame_ >= current.frames.size()) {
         current_frame_ = 0;
       }
-      frame_rect_.x = current.frames[current_frame_].x * frame_size_.x;
-      frame_rect_.y = current.frames[current_frame_].y * frame_size_.y;
+      UpdateFrameRect();
     }
   }
 }

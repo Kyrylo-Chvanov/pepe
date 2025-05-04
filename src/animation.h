@@ -31,9 +31,10 @@ class AnimationPlayer {
         current_animation_{nullptr},
         frame_size_{frame_size},
         texture_{texture} {}
-  void Play(const char* animation);
+  void Play(const char* animation, const bool reset = false);
   void AddAnimation(const char* animation_name, const Animation& animation);
   void Update();
+  const char* GetCurrentAnimation() const { return current_animation_; }
   void DrawAt(const Rectangle& destination) const {
     if (current_animation_ != nullptr) {
       DrawTexturePro(texture_, frame_rect_, destination, Vector2{0, 0}, 0, WHITE);
@@ -41,6 +42,7 @@ class AnimationPlayer {
   }
 
  private:
+  void UpdateFrameRect();
   unsigned frame_counter_;
   unsigned current_frame_;
   Rectangle frame_rect_;
