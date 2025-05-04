@@ -29,4 +29,26 @@ void Window::ProcessDragging() {
   }
 }
 
-void Window::Update() { ProcessDragging(); }
+void Window::ProcessSizeChanges() {
+  constexpr int SIZE_CHANGE{16};
+  constexpr int MAX_WIN_SIZE{256};
+  constexpr int MIN_WIN_SIZE{64};
+  if (IsKeyPressed(KEY_EQUAL)) {
+    int width{GetScreenWidth()};
+    if (width < MAX_WIN_SIZE) {
+      width += SIZE_CHANGE;
+      SetWindowSize(width, width);
+    }
+  } else if (IsKeyPressed(KEY_MINUS)) {
+    int width{GetScreenWidth()};
+    if (width > MIN_WIN_SIZE) {
+      width -= SIZE_CHANGE;
+      SetWindowSize(width, width);
+    }
+  }
+}
+
+void Window::Update() {
+  ProcessDragging();
+  ProcessSizeChanges();
+}

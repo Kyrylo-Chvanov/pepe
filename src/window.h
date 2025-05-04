@@ -11,6 +11,7 @@ class Window {
 
  private:
   void ProcessDragging();
+  void ProcessSizeChanges();
   Vector2 position_;
   Vector2 mouse_offset_;
 };
