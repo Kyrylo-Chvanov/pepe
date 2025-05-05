@@ -9,13 +9,20 @@
 constexpr int WIN_WIDTH{64};
 constexpr int WIN_HEIGHT{64};
 
-App::App() : window_{WIN_WIDTH, WIN_HEIGHT}, pepe_{} {}
+App::App() : pepe_sit_{false}, window_{WIN_WIDTH, WIN_HEIGHT}, pepe_{} {}
 
 void App::Update() { 
   window_.Update();
   pepe_.Update();
   UpdatePepeState();
+  ProcessInput();
   ProcessPepeState();
+}
+
+void App::ProcessInput() {
+  if (IsKeyPressed(KEY_S)) {
+    pepe_sit_ = !pepe_sit_;
+  }
 }
 
 void App::ProcessPepeState() {
@@ -35,8 +42,12 @@ void App::ProcessPepeWanderingState() {
       timer.SetLifeTime(GetRandomValue(2, 5));
       timer.Start();
     } else if (timer.Done()) {
-      window_.MoveToRandomTarget();
-      pepe_.FlipPepe(window_.GetMovementVector().x < 0);
+      if (!pepe_sit_) {
+        window_.MoveToRandomTarget();
+        pepe_.FlipPepe(window_.GetMovementVector().x < 0);
+      } else {
+        pepe_.FlipPepe(GetRandomValue(1, 2) == 1);
+      }
     }
   }
 }

@@ -13,6 +13,8 @@ class App {
   void Run();
 
  private:
+  bool pepe_sit_;
+  void ProcessInput();
   void ProcessPepeState();
   void ProcessPepeWanderingState();
   void ProcessPepeBlinkingState();
