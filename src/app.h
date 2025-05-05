@@ -14,6 +14,8 @@ class App {
 
  private:
   void ProcessPepeState();
+  void ProcessPepeWanderingState();
+  void ProcessPepeBlinkingState();
   void UpdatePepeState();
   Window window_;
   Pepe pepe_;
