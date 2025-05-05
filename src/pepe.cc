@@ -3,10 +3,12 @@
 #include <raylib.h>
 
 #include "animation.h"
+#include "pepeimg.h"
 
 Pepe::Pepe()
     : state_{WANDERING},
-      texture_{LoadTexture("../assets/sprites/pepe/pepe.png")},
+      texture_{LoadTextureFromImage(Image{PEPEIMG_DATA, PEPEIMG_WIDTH,
+                                          PEPEIMG_HEIGHT, 1, PEPEIMG_FORMAT})},
       animations_{texture_, PEPE_FRAME_SIZE} {
   animations_.AddAnimation("wander", Animation{1, 0, 0, 0});
   animations_.AddAnimation("blink", Animation{1, 1, 0, 0});
