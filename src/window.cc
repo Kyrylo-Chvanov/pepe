@@ -5,12 +5,13 @@
 
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Mouse.hpp>
+#include <cfloat>
 
 Window::Window(const int width, const int height)
     : is_moving_{false},
       target_position_{},
       position_{},
-      mouse_offset_{MAXFLOAT, MAXFLOAT} {
+      mouse_offset_{FLT_MAX, FLT_MAX} {
   SetConfigFlags(FLAG_WINDOW_TRANSPARENT | FLAG_WINDOW_TOPMOST |
                  FLAG_WINDOW_UNDECORATED | FLAG_VSYNC_HINT);
   InitWindow(width, height, "pepe");
@@ -20,7 +21,7 @@ Window::Window(const int width, const int height)
 void Window::ProcessDragging() {
   if (IsBeingDragged()) {
     sf::Vector2i mouse_position{sf::Mouse::getPosition()};
-    if (FloatEquals(mouse_offset_.x, MAXFLOAT)) {
+    if (FloatEquals(mouse_offset_.x, FLT_MAX)) {
       mouse_offset_ = Vector2{mouse_position.x - position_.x,
                               mouse_position.y - position_.y};
     }
@@ -28,7 +29,7 @@ void Window::ProcessDragging() {
     position_.y = mouse_position.y - mouse_offset_.y;
     SetWindowPosition(position_.x, position_.y);
   } else {
-    mouse_offset_ = Vector2{MAXFLOAT, MAXFLOAT};
+    mouse_offset_ = Vector2{FLT_MAX, FLT_MAX};
   }
 }
 
@@ -57,8 +58,8 @@ void Window::ProcessMovement() {
       is_moving_ = false;
     } else {
       constexpr int PEPE_SPEED{100};
-      position_ += Vector2Normalize(GetMovementVector()) * PEPE_SPEED *
-                   GetFrameTime();
+      position_ +=
+          Vector2Normalize(GetMovementVector()) * PEPE_SPEED * GetFrameTime();
       SetWindowPosition(position_.x, position_.y);
     }
   }
@@ -70,10 +71,10 @@ Vector2 Window::GetRandomTarget() const {
   const int monitor_height{GetMonitorHeight(current_monitor)};
   const int screen_width{GetScreenWidth()};
   const int screen_height{GetScreenHeight()};
-  return Vector2{
-    static_cast<float>(GetRandomValue(screen_width, monitor_width - screen_width)),
-    static_cast<float>(GetRandomValue(screen_height, monitor_height - screen_height))
-  };
+  return Vector2{static_cast<float>(GetRandomValue(
+                     screen_width, monitor_width - screen_width)),
+                 static_cast<float>(GetRandomValue(
+                     screen_height, monitor_height - screen_height))};
 }
 
 void Window::Update() {
