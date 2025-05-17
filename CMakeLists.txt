@@ -28,8 +28,8 @@ FetchContent_Declare(SFML
   EXCLUDE_FROM_ALL
   SYSTEM
 )
-
 FetchContent_MakeAvailable(SFML)
+
 FetchContent_Declare(raylib
   GIT_REPOSITORY https://github.com/raysan5/raylib.git
   GIT_TAG 5.5
@@ -39,5 +39,4 @@ FetchContent_Declare(raylib
 )
 FetchContent_MakeAvailable(raylib)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
-target_link_libraries(${PROJECT_NAME} PRIVATE SFML::Window)
+target_link_libraries(${PROJECT_NAME} PRIVATE raylib SFML::Window)
